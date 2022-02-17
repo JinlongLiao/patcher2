@@ -1,4 +1,4 @@
-package com.ldx;
+package io.github.jinlongliao.patcher2;
 
 import java.nio.file.Paths;
 
@@ -11,7 +11,7 @@ class PatcherEnum {
     /**
      * 消息窗口标题
      */
-    static final String PATCHER_NOTIFICATION_TITLE = "Patcher";
+    static final String PATCHER_NOTIFICATION_TITLE = "Patcher2";
     /**
      * 补丁保存全局的Key
      */

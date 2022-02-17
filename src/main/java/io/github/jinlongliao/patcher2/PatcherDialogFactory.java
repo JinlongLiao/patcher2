@@ -1,10 +1,10 @@
-package com.ldx;
+package io.github.jinlongliao.patcher2;
 
 import com.intellij.openapi.actionSystem.AnActionEvent;
 
 public class PatcherDialogFactory {
 
-    public static PatcherDialog getInstance(AnActionEvent event){
+    public static PatcherDialog getInstance(AnActionEvent event) {
         PatcherDialog patcherDialog = new PatcherDialog(event);
         return patcherDialog;
     }

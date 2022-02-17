@@ -1,4 +1,4 @@
-package com.ldx;
+package io.github.jinlongliao.patcher2;
 
 import com.intellij.ide.util.PropertiesComponent;
 import com.intellij.notification.*;
@@ -18,6 +18,7 @@ import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.ui.TextFieldWithStoredHistory;
 import com.intellij.ui.components.JBList;
 import com.jgoodies.common.base.Strings;
+import io.github.jinlongliao.patcher2.constant.LangSupport;
 
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
@@ -50,7 +51,7 @@ public class PatcherDialog extends JDialog {
 
     private JButton buttonOk;
     private JButton buttonCancel;
-    private JLabel pathcerTitle;
+    private JLabel patcherTitle;
     private JCheckBox oldPatcher;
     private JComboBox patcherType;
 
@@ -64,7 +65,7 @@ public class PatcherDialog extends JDialog {
 
 
     /**
-     * 初始化 Pane 内容
+     * 初始化Pane 内容
      *
      * @param event
      */
@@ -156,11 +157,11 @@ public class PatcherDialog extends JDialog {
 
             buttonCancel.addActionListener(e -> dispose());
 
-            pathcerTitle.addMouseListener(new MouseAdapter() {
+            patcherTitle.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
                     try {
-                        Desktop.getDesktop().browse(URI.create("https://github.com/JinlongLiao/patcher"));
+                        Desktop.getDesktop().browse(URI.create("https://github.com/JinlongLiao/patcher2"));
                     } catch (IOException ex) {
                         ex.printStackTrace();
                     }
@@ -214,8 +215,12 @@ public class PatcherDialog extends JDialog {
             try {
                 execute(compileContext, modules);
                 String content = "Export patch successfully(" + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")) + ").<br><a href=\"file://" + savePath.getText() + "\" target=\"blank\">open</a>";
-                Notifications.Bus.notify(notificationGroup.createNotification(PatcherEnum.PATCHER_NOTIFICATION_TITLE, content, NotificationType.INFORMATION, NotificationListener.URL_OPENING_LISTENER));
-            } catch (IOException e) {
+                Notification notification = notificationGroup.createNotification(PatcherEnum.PATCHER_NOTIFICATION_TITLE,
+                        content,
+                        NotificationType.INFORMATION);
+                notification.setListener(NotificationListener.URL_OPENING_LISTENER);
+                Notifications.Bus.notify(notification);
+            } catch (Exception e) {
                 Notifications.Bus.notify(notificationGroup.createNotification("Export patch failed.<br>" + e.getMessage(), NotificationType.ERROR));
                 e.printStackTrace();
             }
@@ -281,7 +286,7 @@ public class PatcherDialog extends JDialog {
                             if (Files.notExists(saveClassPath)) {
                                 Files.createDirectories(saveClassPath);
                             }
-                            if ("java".equals(classSuffix)) {
+                            if (LangSupport.supportLang(classSuffix)) {
                                 DirectoryStream<Path> classPaths = Files.newDirectoryStream(classFilesPath, classFileName + ".class");
                                 for (Path next : classPaths) {
                                     Files.copy(next, Paths.get(saveClassPath.toString(), next.getFileName().toString()), StandardCopyOption.REPLACE_EXISTING);
@@ -305,7 +310,7 @@ public class PatcherDialog extends JDialog {
                         }
                     }
                     break;
-                case "java":
+                case "file":
                     for (VirtualFile patcherFile : patcherFiles) {
                         Path saveStaticPath = Paths.get(savePath.getText(), this.projectName.getText(), patcherFile.getPath().replaceFirst(Objects.requireNonNull(module.getProject().getBasePath()), ""));
                         if (Files.notExists(saveStaticPath)) {
@@ -318,6 +323,10 @@ public class PatcherDialog extends JDialog {
                     break;
             }
         }
+    }
+
+    private boolean supportLang(String suffix) {
+        return true;
     }
 
     private void createUIComponents() {
