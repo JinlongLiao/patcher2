@@ -25,9 +25,10 @@ intellij {
     updateSinceUntilBuild = false
 }
 patchPluginXml {
-    changeNotes = """
-      Add change notes here.<br>
-      <em>most HTML tags may be used</em>"""
+    changeNotes = '''
+基于 <a href='https://github.com/Liang-Dongxing/patcher.git'>https://github.com/Liang-Dongxing/patcher.git</a>
+二次修改，新增支持Kotlin，Groovy 补丁导出
+'''
 }
 test {
     useJUnitPlatform()

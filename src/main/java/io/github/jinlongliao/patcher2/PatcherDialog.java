@@ -229,6 +229,9 @@ public class PatcherDialog extends JDialog {
 
     private void execute(CompileContext compileContext, Module[] modules) throws IOException {
         for (Module module : modules) {
+            if (Objects.isNull(module)) {
+                continue;
+            }
             // 删除旧补丁文件
             if (oldPatcher.isSelected()) {
                 propertiesComponent.setValue(PatcherEnum.DELETE_OLD_PATCHER, oldPatcher.isSelected());
