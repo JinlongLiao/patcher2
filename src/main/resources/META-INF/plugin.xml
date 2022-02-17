@@ -1,0 +1,31 @@
+<idea-plugin>
+    <id>io.github.jinlongliao.patcher2</id>
+    <name>patcher2</name>
+    <version>2020.3</version>
+
+    <vendor email="jinlongliao@foxmail.com" url="https://github.com/JinlongLiao/patcher">JinlongLiao</vendor>
+
+    <description>Create Java,Groovy,Kotlin project patch files.</description>
+
+    <!-- please see https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html
+         on how to target different products -->
+    <depends>com.intellij.modules.platform</depends>
+    <depends>com.intellij.modules.java</depends>
+
+
+    <extensions defaultExtensionNs="com.intellij">
+        <!-- Add your extensions here -->
+        <notificationGroup id="Patcher2" displayType="BALLOON"/>
+    </extensions>
+    <actions>
+        <!-- Add your actions here -->
+        <!--    设置 idea Action    -->
+        <action id="ldx.patcher" class="com.CreatePatcherAction" text="Create Patcher"
+                description="Create Java SE and Java EE project patch files.">
+            <add-to-group group-id="ProjectViewPopupMenu" anchor="first"/>
+            <add-to-group group-id="Vcs.Log.ChangesBrowser.Popup" anchor="first"/><!-- Version Control-Log  -->
+            <add-to-group group-id="ChangesViewPopupMenu" anchor="first"/>      <!-- Version Control-Local Change  -->
+            <keyboard-shortcut first-keystroke="shift alt E" keymap="$default"/>
+        </action>
+    </actions>
+</idea-plugin>
