@@ -1,6 +1,7 @@
 <idea-plugin>
     <id>io.github.jinlongliao.patcher2</id>
     <name>patcher2</name>
+    <idea-version since-build="210.0"/>
     <vendor email="jinlongliao@foxmail.com" url="https://github.com/JinlongLiao/patcher">JinlongLiao</vendor>
 
     <description>Create Java,Groovy,Kotlin project patch files.</description>

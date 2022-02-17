@@ -4,7 +4,7 @@ plugins {
 }
 
 group 'io.github.jinlongliao'
-version '1.0-SNAPSHOT'
+version '1.0.1-SNAPSHOT'
 compileJava.options.encoding = 'UTF-8'
 tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
